@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TerraService } from './terra.service';
+import { RootService } from './root/root.service';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,15 @@ import { TerraService } from './terra.service';
 })
 export class AppComponent {
   title = 'hackharvard';
+  rootService: RootService;
 
-  constructor(public terraService: TerraService) {}
+  constructor(public terraService: TerraService, rootService: RootService) {
+    this.rootService = rootService;
+  }
+
+  ngOnInit() {
+    this.rootService.getAPIData();
+  }
 
   getNumItems(): void {
     console.log(this.terraService

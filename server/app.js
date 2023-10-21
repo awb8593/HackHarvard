@@ -2,10 +2,13 @@ const express = require('express');
 const fs = require('fs');
 const OpenAI = require('openai');
 const auth = require('./authentication.js');
+const cors = require('cors');
 
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors()); // Enable CORS for all routes or configure it as needed.
 
 // Importing the API and instantiating the client
 const { default: Terra } = require("terra-api");

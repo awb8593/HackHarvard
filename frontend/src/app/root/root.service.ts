@@ -6,9 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RootService {
 
+  private serverUrl = 'http://localhost:3000';
+
   constructor(private http: HttpClient) { }
 
   getAPIData(){
-    return this.http.get('https://jsonplaceholder.typicode.com/users')
+    return this.http.get(`${this.serverUrl}/getData`);
   }
 }
