@@ -23,7 +23,9 @@ export class ProviderService {
         new Patient(3, "Kasim", 5857481591, new Array<Provider>)
       ),
       new Array<PatientAlert>(
-        new PatientAlert(1, new Patient(1, "Onvida", 5857481591, new Array<Provider>), "ALERT! Quite healthy")
+        new PatientAlert(5, new Patient(1, "Onvida", 5857481591, new Array<Provider>), "ALERT! Immediate attention may be needed!"),
+        new PatientAlert(2, new Patient(2, "Diego", 5857481591, new Array<Provider>), "Starting to show minor symptoms."),
+        new PatientAlert(1, new Patient(3, "Kasim", 5857481591, new Array<Provider>), "Healthiest guy I've ever seen")
       )
     )
   }

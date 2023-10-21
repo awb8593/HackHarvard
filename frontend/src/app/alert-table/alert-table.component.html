@@ -10,7 +10,12 @@
             </tr>
         </thead>
         <tbody>
-            
+            <tr *ngFor="let patientAlert of currentProvider.patientAlerts">
+                <td>{{ patientAlert.priority }}</td>
+                <th>{{ patientAlert.patient.name }}</th>
+                <th>{{ patientAlert.notes }}</th>
+                <button>Send</button>
+            </tr>
         </tbody>
     </table>
 </div>
