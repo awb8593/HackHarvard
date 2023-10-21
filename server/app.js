@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const OpenAI = require('openai');
 const auth = require('./authentication.js');
+// const widg = require('./widget.js');
 const cors = require('cors');
 
 
@@ -23,10 +24,20 @@ app.listen(port, () => {
 });
 
 const USER_ID = "harvardhack-testing-bvgOmUYqpi";
-
-app.get('/', (req, res) => {
+app.get('/allProviders', (req, res) => {
+  return terra.getProviders()
+  .then((p) => {
+  	console.log(p);
+	})
+  res.json({'message': allp})
+  // terra.generateWidgetSession({
+  //   referenceID: USER_ID,
+  //   providers: ["GOOGLE", "GARMIN"],
+  //   authSuccessRedirectUrl: "/getData",
+  //   authFailureRedirectUrl: "/diagnosis",
+  //   language: 'en'
+  // });
 })
-
  
 // Get data from start date to current time
 
@@ -79,6 +90,49 @@ async function getDiagnosis (prompt) {
   return chatCompletion.choices;
 }
 
+async function getWidgetSession() {
+  terra.generateWidgetSession({
+    referenceID: "hackHarvarder",
+    providers: ["CRONOMETER", "OURA"],
+      authSuccessRedirectUrl: "http://localhost:3000/diagnosis",
+      authFailureRedirectUrl: "http://localhost:3000/diagnosis",
+      language: 'en'
+  })
+  .then((s) => {
+    console.log(s);
+  });
+  getWidget();
+}
+
+async function getWidget() {
+  try {
+    const response = await fetch(
+      'https://api.tryterra.co/v2/auth/generateWidgetSession',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'dev-id': auth.DEV_ID,
+          'content-type': 'application/json',
+          'x-api-key': auth.API_KEY,
+        },
+        body: JSON.stringify({
+          reference_id: "helloHarvard",
+          providers:
+            'GARMIN,WITHINGS,FITBIT,GOOGLE,OURA,WAHOO,PELOTON,ZWIFT,TRAININGPEAKS,FREESTYLELIBRE,DEXCOM,COROS,HUAWEI,OMRON,RENPHO,POLAR,SUUNTO,EIGHT,APPLE,CONCEPT2,WHOOP,IFIT,TEMPO,CRONOMETER,FATSECRET,NUTRACHECK,UNDERARMOUR',
+          language: 'en',
+          auth_success_redirect_url: 'terraficapp://request',
+          auth_failure_redirect_url: 'terraficapp://login',
+        }),
+      },
+    );
+    const json = await response.json();
+    console.log(json.url);
+  //   props.onSuccess(json.url);
+  } catch (error) {
+    console.error(error);
+  }
+}
 // export async function GET() {
 //   const resp = await terra.generateWidgetSession({
 //       referenceID: "HelloHarvard",
