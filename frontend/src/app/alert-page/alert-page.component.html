@@ -36,10 +36,15 @@
                 <!-- Bottom -->
                 <div class="horizontal-layout other-options vertical-child">
                     <!-- Select a Patient Dropdown-->
-                    <select id="selectPatient">Select a Patient
-                        <option value="" disabled selected>Select a Patient</option>
-                        <option value="option1">Option 1</option>
-                    </select>
+                    <form #myForm="ngForm">
+                        <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId">
+                            <option [ngValue]=0 disabled>Select a Patient</option>
+                            <option *ngFor="let patientAlert of currentProvider.patientAlerts" [value]="patientAlert.patient.id">
+                                {{ patientAlert.patient.name }}
+                            </option>
+                        </select>
+                    </form>
+                      
                       
                     <!-- Button one -->
                     <div class="notify-button horizontal-child">

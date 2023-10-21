@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Provider } from '../models/provider.model';
+import { Patient } from '../models/patient.model';
+import { ProviderService } from '../provider.service';
 
 @Component({
   selector: 'app-alert-page',
@@ -8,7 +11,12 @@ import { Router } from '@angular/router';
 })
 export class AlertPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  currentProvider: Provider;
+  selectedPatientId: number = 0;
+
+  constructor(private router: Router, private providerService: ProviderService) {
+    this.currentProvider = this.providerService.createMockProvider();
+  }
 
   ngOnInit(): void {
   }
