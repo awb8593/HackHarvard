@@ -10,7 +10,15 @@ export class RootService {
 
   constructor(private http: HttpClient) { }
 
-  getAPIData(){
-    return this.http.get(`${this.serverUrl}/getData`);
+  getAPIData( endpoint: string){
+    return this.http.get(`${this.serverUrl}/${endpoint}`);
+  }
+
+  getTest() {
+    return this.getAPIData('getData')
+  }
+
+  getPatientAlert() {
+    return this.getAPIData('diagnosis');
   }
 }

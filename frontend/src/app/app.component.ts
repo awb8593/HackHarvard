@@ -16,7 +16,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.rootService.getAPIData();
+    this.rootService.getPatientAlert();
   }
 
   getNumItems(): void {

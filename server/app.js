@@ -25,14 +25,6 @@ app.listen(port, () => {
 const USER_ID = "harvardhack-testing-bvgOmUYqpi";
 
 app.get('/', (req, res) => {
-  res.json({'message': 'Hello World'})
-  terra.generateWidgetSession({
-    referenceID: USER_ID,
-    providers: ["CRONOMETER", "OURA"],
-    authSuccessRedirectUrl: "/getData",
-    authFailureRedirectUrl: "/diagnosis",
-    language: 'en'
-  });
 })
 
  
@@ -65,7 +57,7 @@ app.post('/postData', (req, res) => {
 
 app.get('/diagnosis', function(req, res) {
   // Get the users bioinformatics from Terra and set the bioinformatics to a string
-  const bioinformatics = `heartrate = 156 BPM, sleep = 14 minutes`;
+  const bioninformatics = `heartrate = 156 BPM, sleep = 14 minutes`;
 
   // Create a prompt for open ai to explain the bioinformatic information
   const prompt = `Explain this information to me as if I were a doctor. Include priority on a scale of 0-5 (0 is a normal chart info, 5 is urgent and life threatening) and give detailed notes that might be helpful for me to diagnose the patient. ${bioninformatics}. Reformat the above message into  a json with the following format {priority: number, summary: string, detailedNotes: string, assessment: string, actionItems: string, followUp: string}`;
