@@ -1,5 +1,4 @@
-import { Component, Input } from '@angular/core';
-import { Provider } from '../models/provider.model';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,5 +6,5 @@ import { Provider } from '../models/provider.model';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  @Input() provider?: Provider;
+
 }
