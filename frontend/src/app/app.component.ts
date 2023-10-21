@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TerraService } from './terra.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hackharvard';
+
+  constructor(public terraService: TerraService) {}
+
+  getNumItems(): void {
+    console.log(this.terraService
+    .getProviders());
+    // .then((p: any) => {
+    //   console.log(p);
+    // })
+    }  
+    
+  
 }
