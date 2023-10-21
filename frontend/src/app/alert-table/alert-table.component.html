@@ -1,20 +1,11 @@
 <div>
-    <h1>Patient Alerts</h1>
+    <h1>New Event Feed</h1>
+    <h4>Shows changes in patient’s vitals from wearable tracker data.</h4>
     <table>
-        <thead>
-            <tr>
-                <th>Priority</th>
-                <th>Patient</th>
-                <th>Notes</th>
-                <th>Send Notification</th>
-            </tr>
-        </thead>
         <tbody>
             <tr *ngFor="let patientAlert of currentProvider.patientAlerts">
-                <td>{{ patientAlert.priority }}</td>
-                <th>{{ patientAlert.patient.name }}</th>
-                <th>{{ patientAlert.notes }}</th>
-                <button>Send</button>
+                <th>{{ patientAlert.patient.name }}, {{ patientAlert.notes }} </th>
+                <th> Concern level: {{ patientAlert.priority }}</th>
             </tr>
         </tbody>
     </table>
