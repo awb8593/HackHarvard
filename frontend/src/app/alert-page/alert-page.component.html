@@ -43,6 +43,15 @@
                                 {{ patientAlert.patient.name }}
                             </option>
                         </select>
+                        <select id="selectTopic" name="selectedTopic" [(ngModel)]="selectedTopic" (change)="updateSelectedTopic($event)">
+                            <option [ngValue]="" disabled>Select a Topic</option>
+                            <option [ngValue]="'Blood Sugar'">Blood Sugar</option>
+                            <option [ngValue]="'Blood Pressure'">Blood Pressure</option>
+                        </select>
+                          
+                          
+                          
+                          
                     </form>
                       
                       
