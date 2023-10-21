@@ -8,10 +8,9 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let patientAlert of patientAlerts">
-            <th>patientAlert.priority</th>
-            <th>patientAlert.patient.name</th>
-            <th>patientAlert.notes</th>
+        <tr *ngFor="let patient of patientAlerts">
+            <th>patient.priority</th>
+            
         </tr>
     </tbody>
 </table>
