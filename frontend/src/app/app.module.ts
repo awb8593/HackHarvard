@@ -6,19 +6,23 @@ import { AppComponent } from './app.component';
 import { AlertPageComponent } from './alert-page/alert-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PatientTableComponent } from './patient-table/patient-table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RootComponent } from './root/root.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertPageComponent,
     NavBarComponent,
-    PatientTableComponent
+    PatientTableComponent,
+    RootComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule { }
