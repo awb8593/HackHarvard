@@ -1,0 +1,91 @@
+.main {
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.nav {
+    margin-top: 0px;
+    padding: 0px;
+    background-color: red;
+    width: 10%;
+    height: 100%;
+}
+
+.nav-child {
+    height: 33.33%;
+}
+
+.content {
+    margin-top: 0px;
+    padding: 0px;
+    width: 90%;
+    height: 100%;
+}
+.info-section {
+    width: 70%;
+}
+
+.patient-section {
+    width: 30%;
+}
+
+.search {
+    height: 10%;
+    background-color: yellow;
+}
+
+.dashboard {
+    height: 90%;
+}
+
+.alert-dashboard {
+    height: 70%;
+    background-color: green;
+}
+
+.other-options {
+    height: 30%;
+}
+
+.notify-button {
+    width: 50%;
+    background-color: purple;
+}
+
+.tbd-button {
+    width: 50%;
+    background-color: pink;
+}
+
+.patient-table {
+    height: 80%;
+    background-color:darkgrey;
+}
+
+.add-patient {
+    height: 20%;
+    background-color:rgb(237, 166, 0);
+}
+
+.vertical-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.vertical-child {
+    width: 100%;
+}
+
+.horizontal-layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.horizontal-child {
+    height: 100%;
+}
+
