@@ -14,6 +14,7 @@ export class AlertPageComponent implements OnInit {
   currentProvider: Provider;
   selectedPatientId: number = 0;
   selectedTopic: string = "Select a Topic";
+  otherNotes: string = "";
 
   constructor(private router: Router, private providerService: ProviderService) {
     this.currentProvider = this.providerService.createMockProvider();
