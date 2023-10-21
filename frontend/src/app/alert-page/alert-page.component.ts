@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { Provider } from '../models/provider.model';
 
 @Component({
   selector: 'app-alert-page',
   templateUrl: './alert-page.component.html',
   styleUrls: ['./alert-page.component.css']
 })
-export class AlertPageComponent implements OnInit {
-
-  constructor(private router: Router) { }
-
-  ngOnInit(): void {
+export class AlertPageComponent {
+  provider: Provider;
+  
+  constructor(private router: Router, currentProvider: Provider) {
+    this.provider = currentProvider;
   }
-
 }

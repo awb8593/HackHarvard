@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { AlertPageComponent } from './alert-page/alert-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PatientTableComponent } from './patient-table/patient-table.component';
+import { AlertTableComponent } from './alert-table/alert-table.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertPageComponent,
     NavBarComponent,
-    PatientTableComponent
+    PatientTableComponent,
+    AlertTableComponent
   ],
   imports: [
     BrowserModule,
