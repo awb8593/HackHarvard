@@ -2,64 +2,56 @@ const express = require('express');
 const fs = require('fs');
 const OpenAI = require('openai');
 const auth = require('./authentication.js');
-// const widg = require('./widget.js');
 const cors = require('cors');
 
 
 const app = express();
 const port = process.env.PORT || 3000;
-
-app.use(cors()); // Enable CORS for all routes or configure it as needed.
-
 // Importing the API and instantiating the client
 const { default: Terra } = require("terra-api");
+const { json } = require('stream/consumers');
 const terra = new Terra(auth.DEV_ID, auth.API_KEY, auth.SECRET);
-
+const reference_id = "helloHarvard";
 const openai = new OpenAI({
   apiKey: auth.openai_key, // defaults to process.env["OPENAI_API_KEY"]
 });
+
+app.use(cors()); // Enable CORS for all routes or configure it as needed.
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-const USER_ID = "harvardhack-testing-bvgOmUYqpi";
-app.get('/allProviders', (req, res) => {
-  return terra.getProviders()
+app.get('/', (req, res) => {
+  getWidgetSession();
+})
+
+app.get('/addWearables', (req, res) => {
+  getWidgetSession();
+  getWidget();
+})
+
+app.get('/getProviders', (req, res) => {
+  let output;
+  terra.getProviders()
   .then((p) => {
+    res.send(p);
   	console.log(p);
 	})
-  res.json({'message': allp})
-  // terra.generateWidgetSession({
-  //   referenceID: USER_ID,
-  //   providers: ["GOOGLE", "GARMIN"],
-  //   authSuccessRedirectUrl: "/getData",
-  //   authFailureRedirectUrl: "/diagnosis",
-  //   language: 'en'
-  // });
 })
- 
-// Get data from start date to current time
 
-app.get('/getData', (req, res) => {
-  res.json({'message': 'Hello World'})
+app.get('/getUsers', (req, res)=> {
   terra
-  .getNutrition({
-    userId: USER_ID,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
-  terra
-  .getActivity({
-    userId: USER_ID,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
+  .getUsers()
+  .then((p) => {
+  	console.log(p);
+    res.send(p);
+	})
+})
 
-  .then((p) => console.log(p))
-  .catch((e) => console.log(e.status, e.message));
+app.get('/getUserData', (req, res) => {
+  getAllInfo(reference_id);
+  res.send(terra.getUser(reference_id));
 })
 
 app.post('/postData', (req, res) => {
@@ -78,6 +70,30 @@ app.get('/diagnosis', function(req, res) {
     res.send(diagnosis);
   });
 });
+
+async function getAllInfo (userId) {
+  terra
+  .getNutrition({
+    userId: userId,
+    startDate: new Date("2023-03-29"),
+    endDate: new Date(),
+    toWebhook: false,
+  })
+  terra
+  .getActivity({
+    userId: userId,
+    startDate: new Date("2023-03-29"),
+    endDate: new Date(),
+    toWebhook: false,
+  })
+
+  .then((p) => {
+    console.log(p);
+    json.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
+
+}
 
 async function getDiagnosis (prompt) {
   const chatCompletion = await openai.chat.completions.create({
@@ -101,7 +117,7 @@ async function getWidgetSession() {
   .then((s) => {
     console.log(s);
   });
-  getWidget();
+
 }
 
 async function getWidget() {
@@ -133,15 +149,6 @@ async function getWidget() {
     console.error(error);
   }
 }
-// export async function GET() {
-//   const resp = await terra.generateWidgetSession({
-//       referenceID: "HelloHarvard",
-//       language: "en",
-//       authSuccessRedirectUrl: "http://localhost:3000",
-//       authFailureRedirectUrl: "http://localhost:3000"
-//   })
-//   return NextResponse.json({ url: resp.url }, { status: 200}); 
-// }
 
 function main () {
   terra.authUser();
