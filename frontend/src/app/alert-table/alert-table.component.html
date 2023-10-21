@@ -1,0 +1,12 @@
+<div>
+    <h1>New Event Feed</h1>
+    <h4>Shows changes in patient’s vitals from wearable tracker data.</h4>
+    <table>
+        <tbody>
+            <tr *ngFor="let patientAlert of currentProvider.patientAlerts">
+                <th>{{ patientAlert.patient.name }}, {{ patientAlert.notes }} </th>
+                <th> Concern level: {{ patientAlert.priority }}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

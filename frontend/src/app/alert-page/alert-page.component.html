@@ -1,0 +1,81 @@
+<div class="main">
+    <!-- Left Side -->
+    <div class="vertical-layout nav">
+        <!-- Top -->
+        <div class="vertical-child nav-child">
+            <p>REPLACE WITH THE PROFILE PICTURE</p>
+        </div>
+
+        <!-- Middle -->
+        <div class="vertical-child nav-child">
+            <p>REPLACE ME WITH THE MENU OPTIONS</p>
+        </div>
+
+        <!-- Bottom -->
+        <div class="vertical-child nav-child">
+            <p>REPLACE ME WITH THE SETTINGS BUTTON</p>
+        </div>
+    </div>
+
+    <!-- Right Side-->
+    <div class="vertical-layout content">
+        <!-- Top-->
+        <div class="vertical-child search">
+            <p>REPLACE ME WITH THE SEARCH BAR</p>
+        </div>
+
+        <!-- Bottom -->
+        <div class="horizontal-layout vertical-child dashboard">
+            <!-- Left -->
+            <div class="vertical-layout horizontal-child info-section">
+                <!-- Top -->
+                <div class="alert-dashboard vertical-child">
+                    <app-alert-table></app-alert-table>
+                </div>
+
+                <!-- Bottom -->
+                <div class="horizontal-layout other-options vertical-child">
+                    <!-- Select a Patient Dropdown-->
+                    <form #myForm="ngForm">
+                        <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId">
+                            <option [ngValue]=0 disabled>Select a Patient</option>
+                            <option *ngFor="let patientAlert of currentProvider.patientAlerts" [value]="patientAlert.patient.id">
+                                {{ patientAlert.patient.name }}
+                            </option>
+                        </select>
+                        <select id="selectTopic" name="selectedTopic" [(ngModel)]="selectedTopic" (change)="updateSelectedTopic($event)">
+                            <option [ngValue]="" disabled>Select a Topic</option>
+                            <option [ngValue]="'Blood Sugar'">Blood Sugar</option>
+                            <option [ngValue]="'Blood Pressure'">Blood Pressure</option>
+                            <option [ngValue]="'Sleeping Patterns'">Sleeping Patterns</option>
+                            <option [ngValue]="'Sleep Quality'">Sleep Quality</option>
+                            <option [ngValue]="'Activity Levels'">Activity levels</option>
+                        </select>
+                        <textarea id="otherNotes" name="otherNotes" [(ngModel)]="otherNotes" placeholder="Other Things to Include"></textarea>
+                          
+                    </form>
+                      
+                      
+                    <!-- Button one -->
+                    <div class="notify-button horizontal-child">
+                        <p>REPLACE ME WITH THE NOTIFY PATIENT BUTTON</p>
+                    </div>
+                    <!-- Button two -->
+                    <div class="tbd-button horizontal-child">
+                        <p>REPLACE ME WITH THE TBD BUTTON</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right -->
+            <div class="vertical-layout horizontal-child patient-section">
+                <div class="patient-table vertical-child">
+                    <p>REPLACE ME WITH THE PATIENT TABLE</p>
+                </div>
+                <div class="add-patient vertical-child">
+                    <p>REPLACE ME WITH THE ADD PATIENT BUTTON</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
