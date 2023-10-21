@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProviderService } from '../provider.service';4
+import { Provider } from '../models/provider.model';
 
 @Component({
   selector: 'app-alert-table',
@@ -6,8 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./alert-table.component.css']
 })
 export class AlertTableComponent implements OnInit {
+  
+  currentProvider: Provider;
 
-  constructor() { }
+  constructor(private providerService: ProviderService) {
+    this.currentProvider = this.providerService.createMockProvider();
+  }
 
   ngOnInit(): void {
   }
