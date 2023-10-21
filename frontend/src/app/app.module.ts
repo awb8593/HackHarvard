@@ -8,6 +8,8 @@ import { AlertPageComponent } from './alert-page/alert-page.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { PatientTableComponent } from './patient-table/patient-table.component';
 import { AlertTableComponent } from './alert-table/alert-table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { RootComponent } from './root/root.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +17,16 @@ import { AlertTableComponent } from './alert-table/alert-table.component';
     AlertPageComponent,
     NavBarComponent,
     PatientTableComponent,
-    AlertTableComponent
+    AlertTableComponent,
+    RootComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [RootComponent]
 })
 export class AppModule { }
