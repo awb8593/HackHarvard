@@ -5,7 +5,7 @@
     height: 100vh;
     display: flex;
     flex-direction: row;
-    min-height: 40rem;
+    min-height: 47rem;
     background-image: url("../../assets/MockUpLanding.png");
     background-size:100% 100%;
 }
@@ -52,6 +52,7 @@
 }
 
 .dashboard {
+    background-color: #A5B4FF;
     height: 90%;
 }
 
@@ -97,3 +98,28 @@
     height: 100%;
 }
 
+/* Style the card container */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+/* Style the individual card */
+.card {
+    width: 80%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+
+/* Style the card content (table) */
+.card-content {
+    padding: 10px;
+    text-align: center;
+}
+  
