@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins" />
 <style>
   body {
     font-family: 'Poppins', sans-serif;
@@ -13,6 +12,13 @@
   b {
     font-weight: bold;
   }
+
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* This creates a circular shape */
+    object-fit: cover; /* This maintains the aspect ratio */
+  }
 </style>
 
 <b>Patient Profiles</b>
@@ -21,8 +27,9 @@
 <div class="card-container">
   <div class="card" *ngFor="let patient of patients">
     <div class="card-content horizontal-layout">
-        <p class="field">{{ patient.name }}</p>
-        <p class="field">Patient</p>
+      <img class="profile-pic" src="../../assets/SBock_Portrait.png"/>  
+      <p class="field">{{ patient.name }}</p>
+      <p class="field">Patient</p>
     </div>
   </div>
 </div>
