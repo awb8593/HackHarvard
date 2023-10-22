@@ -18,7 +18,16 @@ export class AlertPageComponent implements OnInit {
   otherNotes: string = "";
 
   constructor(private router: Router, private providerService: ProviderService, private rootService: RootService) {
-    this.currentProvider = this.providerService.createMockProvider();
+    this.currentProvider = new Provider(0, '', 0, '', [], []);
+    this.loadProviderData();
+  }
+
+  async loadProviderData() {
+    try {
+      this.currentProvider = await this.providerService.createMockProvider();
+    } catch (error) {
+      console.error('Error while fetching provider:', error);
+    }
   }
 
   // TODO change recipient to be dynamic
