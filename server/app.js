@@ -3,13 +3,36 @@ const fs = require('fs');
 const OpenAI = require('openai');
 const auth = require('./authentication.js');
 const cors = require('cors');
-
-
+const { MessagingResponse } = require('twilio').twiml;
 const app = express();
+
+// Add a global promise rejection handler
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Handle the error here or log it
+});
+
+
+// Twilio credentials
+const accountSid = auth.accountSid;
+const authToken = auth.authToken;
+const client = require('twilio')(accountSid, authToken);
+
+  // // Twilio server setup
+  // app.post('/sms', (req, res) => {
+  //   const twiml = new MessagingResponse();
+  
+  //   twiml.message('The Robots are coming! Head for the hills!');
+  
+  //   res.type('text/xml').send(twiml.toString());
+  // });
+
+
 const port = process.env.PORT || 3000;
 // Importing the API and instantiating the client
 const { default: Terra } = require("terra-api");
 const { json } = require('stream/consumers');
+const { send } = require('process');
 const terra = new Terra(auth.DEV_ID, auth.API_KEY, auth.SECRET);
 const reference_id = "helloHarvard";
 let userid = "";
@@ -17,7 +40,15 @@ const openai = new OpenAI({
   apiKey: auth.openai_key, // defaults to process.env["OPENAI_API_KEY"]
 });
 
-app.use(cors()); // Enable CORS for all routes or configure it as needed.
+const allowedOrigins = ["http://localhost:4200"];
+app.use(cors({
+  origin: allowedOrigins,
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+  credentials: true
+}));
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
@@ -122,6 +153,30 @@ app.get('/diagnosis', function(req, res) {
   });
 });
 
+async function getAllInfo(userId) {
+  try {
+      const nutritionData = await terra.getNutrition({
+          userId: userId,
+          startDate: new Date("2023-03-29"),
+          endDate: new Date(),
+          toWebhook: false,
+      });
+
+      const activityData = await terra.getActivity({
+          userId: userId,
+          startDate: new Date("2023-03-29"),
+          endDate: new Date(),
+          toWebhook: false,
+      });
+
+      console.log(nutritionData);
+      console.log(activityData);
+  } catch (error) {
+      console.error('Error in getAllInfo:', error);
+  }
+}
+
+
 async function getDiagnosis (prompt) {
   const chatCompletion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
@@ -178,6 +233,49 @@ async function getWidget() {
   }
 }
 
-function main () {
-  terra.authUser();
+app.post('/sms', express.json(), (req, res) => {
+  try{
+    const body = req.body.body;
+    const from = req.body.from;
+    const to = req.body.to;
+
+    if (!from || !to || !body) {
+      return res.status(400).json({ error: 'Missing parameters' });
+    }
+
+    // Add debugging output
+    console.log('Received SMS data:', { body, from, to });
+
+    notifyPatient(body, from, to);
+    getAllInfo(reference_id);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+    res.send(terra.getUser(reference_id));
+  } catch(error){}
+  
+});
+
+
+async function notifyPatient(body, from, to) {
+  try {
+    client.messages
+    .create({
+       body: body,
+       from: from,
+       to: to
+     });
+     console.log(message.sid);
+  } catch (error) {
+    console.error('Error in notifyPatient:', error);
+  }
 }
+
+function main () {
+  //terra.authUser();
+  
+}
+
+main();
