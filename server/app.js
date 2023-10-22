@@ -6,6 +6,13 @@ const cors = require('cors');
 const { MessagingResponse } = require('twilio').twiml;
 const app = express();
 
+// Add a global promise rejection handler
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+  // Handle the error here or log it
+});
+
+
 // Twilio credentials
 const accountSid = auth.accountSid;
 const authToken = auth.authToken;
@@ -95,29 +102,29 @@ app.get('/diagnosis', function(req, res) {
   });
 });
 
-async function getAllInfo (userId) {
-  terra
-  .getNutrition({
-    userId: userId,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
-  terra
-  .getActivity({
-    userId: userId,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
+async function getAllInfo(userId) {
+  try {
+      const nutritionData = await terra.getNutrition({
+          userId: userId,
+          startDate: new Date("2023-03-29"),
+          endDate: new Date(),
+          toWebhook: false,
+      });
 
-  .then((p) => {
-    console.log(p);
-    json.send(p);
-  })
-  .catch((e) => console.log(e.status, e.message));
+      const activityData = await terra.getActivity({
+          userId: userId,
+          startDate: new Date("2023-03-29"),
+          endDate: new Date(),
+          toWebhook: false,
+      });
 
+      console.log(nutritionData);
+      console.log(activityData);
+  } catch (error) {
+      console.error('Error in getAllInfo:', error);
+  }
 }
+
 
 async function getDiagnosis (prompt) {
   const chatCompletion = await openai.chat.completions.create({
@@ -198,13 +205,17 @@ app.post('/sms', express.json(), (req, res) => {
 
 
 async function notifyPatient(body, from, to) {
-  client.messages
+  try {
+    client.messages
     .create({
        body: body,
        from: from,
        to: to
-     })
-    .then(message => console.log(message.sid));
+     });
+     console.log(message.sid);
+  } catch (error) {
+    console.error('Error in notifyPatient:', error);
+  }
 }
 
 function main () {
