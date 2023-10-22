@@ -1,7 +1,10 @@
 
 <div *ngIf="currentProvider">
-    <h1>New Event Feed</h1>
-    <h4>Shows changes in patient’s vitals from wearable tracker data.</h4>
+    <div>
+        <h1>New Event Feed</h1>
+        <h4>Shows changes in patient’s vitals from wearable tracker data.</h4>
+    </div>
+    
     <table>
         <tbody>
             <tr *ngFor="let patientAlert of currentProvider.patientAlerts">

@@ -4,6 +4,7 @@ import { Provider } from '../models/provider.model';
 import { Patient } from '../models/patient.model';
 import { ProviderService } from '../provider.service';
 import { RootService } from '../root/root.service';
+import { PatientService } from '../patient.service';
 
 @Component({
   selector: 'app-alert-page',
@@ -16,8 +17,14 @@ export class AlertPageComponent implements OnInit {
   selectedPatientId: number = 0;
   selectedTopic: string = "Select a Topic";
   otherNotes: string = "";
+  patients: Array<Patient> = [];
 
-  constructor(private router: Router, private providerService: ProviderService, private rootService: RootService) {
+  constructor(private router: Router, private providerService: ProviderService, private rootService: RootService, private patientService: PatientService) {
+    this.patients = [
+      new Patient(1, "Onvida", 5857481591, new Array<Provider>),
+      new Patient(7, "Diego", 5857481591, new Array<Provider>),
+      new Patient(10, "Kasim", 5857481591, new Array<Provider>)
+    ]
     this.currentProvider = new Provider(0, '', 0, '', [], []);
   }
 
