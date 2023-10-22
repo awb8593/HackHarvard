@@ -1,0 +1,37 @@
+/* Style the card container */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* Style the individual card */
+.card {
+  width: 300px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Add hover effect to cards */
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Style the card content (table) */
+.card-content {
+  padding: 10px;
+  text-align: center;
+}
+
+.horizontal-layout {
+    display: flex;
+    flex-direction: row;
+}
+.field {
+    padding-left:2%;
+    padding-right:2%;
+}

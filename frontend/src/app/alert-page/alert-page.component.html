@@ -18,24 +18,25 @@
     </div>
 
     <!-- Right Side-->
-    <div class="vertical-layout content">
-        <!-- Top-->
-        <div class="vertical-child search">
-            <p>REPLACE ME WITH THE SEARCH BAR</p>
-        </div>
+    <div class="right-side">
+        <div class="vertical-layout content">
+            <!-- Top-->
+            <div class="vertical-child search">
+                <p>REPLACE ME WITH THE SEARCH BAR</p>
+            </div>
 
-        <!-- Bottom -->
-        <div class="horizontal-layout vertical-child dashboard">
-            <!-- Left -->
-            <div class="vertical-layout horizontal-child info-section">
-                <!-- Top -->
-                <div class="alert-dashboard vertical-child">
-                    <app-alert-table></app-alert-table>
-                </div>
-
-                <!-- Bottom -->
-                <div class="horizontal-layout other-options vertical-child">
-                    <!-- Select a Patient Dropdown-->
+            <!-- Bottom -->
+            <div class="horizontal-layout vertical-child dashboard">
+                <!-- Left -->
+                <div class="vertical-layout horizontal-child info-section">
+                    <!-- Top -->
+                    <div class="alert-dashboard vertical-child card">
+                        <app-alert-table></app-alert-table>
+                    </div>
+    
+                    <!-- Bottom -->
+                    <div class="horizontal-layout other-options vertical-child card">
+                        <!-- Select a Patient Dropdown-->
                     <form #myForm="ngForm">
                         <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId">
                             <option [ngValue]=0 disabled>Select a Patient</option>
@@ -57,23 +58,24 @@
                       
                       
                     <!-- Button one -->
-                    <div class="notify-button horizontal-child">
-                        <p>REPLACE ME WITH THE NOTIFY PATIENT BUTTON</p>
-                    </div>
-                    <!-- Button two -->
-                    <div class="tbd-button horizontal-child">
-                        <p>REPLACE ME WITH THE TBD BUTTON</p>
+                        <div class="notify-button horizontal-child">
+                            <p>REPLACE ME WITH THE NOTIFY PATIENT BUTTON</p>
+                        </div>
+                        <!-- Button two -->
+                        <div class="tbd-button horizontal-child">
+                            <p>REPLACE ME WITH THE TBD BUTTON</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Right -->
-            <div class="vertical-layout horizontal-child patient-section">
-                <div class="patient-table vertical-child">
-                    <p>REPLACE ME WITH THE PATIENT TABLE</p>
-                </div>
-                <div class="add-patient vertical-child">
-                    <p>REPLACE ME WITH THE ADD PATIENT BUTTON</p>
+    
+                <!-- Right -->
+                <div class="vertical-layout horizontal-child patient-section">
+                    <div class="patient-table vertical-child card">
+                        <app-patient-table></app-patient-table>
+                    </div>
+                    <div class="add-patient vertical-child card">
+                        <p>REPLACE ME WITH THE ADD PATIENT BUTTON</p>
+                    </div>
                 </div>
             </div>
         </div>

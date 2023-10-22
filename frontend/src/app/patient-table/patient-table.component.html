@@ -1,1 +1,12 @@
-<p>patient-table works!</p>
+<b>Patient Profiles</b>
+<p>View Patient's Entire Chart</p>
+
+<div class="card-container">
+  <div class="card" *ngFor="let patient of patients">
+    <div class="card-content horizontal-layout">
+        <p class="field">{{ patient.priority }}</p>
+        <p class="field">{{ patient.patient }}</p>
+        <p class="field">{{ patient.notes }}</p>
+    </div>
+  </div>
+</div>
