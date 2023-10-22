@@ -12,6 +12,7 @@ const { default: Terra } = require("terra-api");
 const { json } = require('stream/consumers');
 const terra = new Terra(auth.DEV_ID, auth.API_KEY, auth.SECRET);
 const reference_id = "helloHarvard";
+let userid = "";
 const openai = new OpenAI({
   apiKey: auth.openai_key, // defaults to process.env["OPENAI_API_KEY"]
 });
@@ -23,16 +24,28 @@ app.listen(port, () => {
 });
 
 app.get('/', (req, res) => {
-  getWidgetSession();
+  let all = getWidgetSession();
+  console.log(all);
+  terra
+  .getUsers()
+  .then((allUsers) => {
+  	console.log(allUsers);
+    res.send(allUsers);
+    allUsers.users.forEach(element => {
+      if (element.reference_id == reference_id) {
+        userid = element.user_id;
+      }
+    });
+	})
+  res.send(all);
 })
 
 app.get('/addWearables', (req, res) => {
-  getWidgetSession();
+  getWidgetSession(res);
   getWidget();
 })
 
 app.get('/getProviders', (req, res) => {
-  let output;
   terra.getProviders()
   .then((p) => {
     res.send(p);
@@ -43,19 +56,57 @@ app.get('/getProviders', (req, res) => {
 app.get('/getUsers', (req, res)=> {
   terra
   .getUsers()
-  .then((p) => {
-  	console.log(p);
-    res.send(p);
+  .then((allUsers) => {
+    allUsers.users.forEach(element => {
+      if (element.reference_id == reference_id) {
+        userid = element.user_id;
+      }
+    });
+  	console.log(allUsers);
+    res.send(allUsers);
 	})
 })
 
-app.get('/getUserData', (req, res) => {
-  getAllInfo(reference_id);
-  res.send(terra.getUser(reference_id));
+app.get('/getUserDataDetails', (req, res) => {
+
+  // fill up historical data
+terra
+.getAthlete({ userId: userid, toWebhook: false })
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
 })
 
-app.post('/postData', (req, res) => {
-    
+app.get('/getUserDataNutrition', (req, res) => {
+
+  // fill up historical data
+terra
+.getNutrition({ userId: userid, startDate: new Date("2023-06-29"), endDate: new Date(), toWebhook: false })
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
+})
+
+ // ?user_id=wow_a_new_user&reference_id=fun_identifier&resource=FITBIT
+
+app.get('/getUserDataActivity', (req, res) => {
+  terra
+  .getActivity({
+    userId: userid,
+    startDate: new Date("2023-06-29"),
+    endDate: new Date(),
+    toWebhook: false
+  })
+
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
 })
 
 app.get('/diagnosis', function(req, res) {
@@ -71,30 +122,6 @@ app.get('/diagnosis', function(req, res) {
   });
 });
 
-async function getAllInfo (userId) {
-  terra
-  .getNutrition({
-    userId: userId,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
-  terra
-  .getActivity({
-    userId: userId,
-    startDate: new Date("2023-03-29"),
-    endDate: new Date(),
-    toWebhook: false,
-  })
-
-  .then((p) => {
-    console.log(p);
-    json.send(p);
-  })
-  .catch((e) => console.log(e.status, e.message));
-
-}
-
 async function getDiagnosis (prompt) {
   const chatCompletion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
@@ -106,9 +133,9 @@ async function getDiagnosis (prompt) {
   return chatCompletion.choices;
 }
 
-async function getWidgetSession() {
+async function getWidgetSession(res) {
   terra.generateWidgetSession({
-    referenceID: "hackHarvarder",
+    referenceID: "helloHarvard",
     providers: ["CRONOMETER", "OURA"],
       authSuccessRedirectUrl: "http://localhost:3000/diagnosis",
       authFailureRedirectUrl: "http://localhost:3000/diagnosis",
@@ -116,6 +143,7 @@ async function getWidgetSession() {
   })
   .then((s) => {
     console.log(s);
+    // res.send(s);
   });
 
 }
@@ -144,7 +172,7 @@ async function getWidget() {
     );
     const json = await response.json();
     console.log(json.url);
-  //   props.onSuccess(json.url);
+    return json;
   } catch (error) {
     console.error(error);
   }
