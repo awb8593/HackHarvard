@@ -53,26 +53,29 @@
                     </div>
     
                     <!-- Bottom -->
-                    <div class="horizontal-layout other-options vertical-child alert-feed-card">
+                    <div class="vertical-layout other-options vertical-child alert-feed-card">
                         <!-- Select a Patient Dropdown-->
-                    <form #myForm="ngForm">
-                        <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId">
-                            <option [ngValue]=0 disabled>Select a Patient</option>
-                            <option *ngFor="let patientAlert of currentProvider.patientAlerts" [value]="patientAlert.patient.id">
-                                {{ patientAlert.patient.name }}
-                            </option>
-                        </select>
-                        <select id="selectTopic" name="selectedTopic" [(ngModel)]="selectedTopic" (change)="updateSelectedTopic($event)">
-                            <option [ngValue]="" disabled>Select a Topic</option>
-                            <option [ngValue]="'Blood Sugar'">Blood Sugar</option>
-                            <option [ngValue]="'Blood Pressure'">Blood Pressure</option>
-                            <option [ngValue]="'Sleeping Patterns'">Sleeping Patterns</option>
-                            <option [ngValue]="'Sleep Quality'">Sleep Quality</option>
-                            <option [ngValue]="'Activity Levels'">Activity levels</option>
-                        </select>
-                        <textarea id="otherNotes" name="otherNotes" [(ngModel)]="otherNotes" placeholder="Other Things to Include"></textarea>
-                          
-                    </form>
+                        <form #myForm="ngForm" class="form-container vertical-layout">
+                            <div class="horizontal-layout">
+                                <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId" class="select-box">
+                                    <option [ngValue]="0" disabled>Select a Patient</option>
+                                    <option *ngFor="let patientAlert of currentProvider.patientAlerts" [value]="patientAlert.patient.id">
+                                      {{ patientAlert.patient.name }}
+                                    </option>
+                                  </select>
+                                
+                                  <select id="selectTopic" name="selectedTopic" [(ngModel)]="selectedTopic" (change)="updateSelectedTopic($event)" class="select-box">
+                                    <option [ngValue]="" disabled>Select a Topic</option>
+                                    <option [ngValue]="'Blood Sugar'">Blood Sugar</option>
+                                    <option [ngValue]="'Blood Pressure'">Blood Pressure</option>
+                                    <option [ngValue]="'Sleeping Patterns'">Sleeping Patterns</option>
+                                    <option [ngValue]="'Sleep Quality'">Sleep Quality</option>
+                                    <option [ngValue]="'Activity Levels'">Activity Levels</option>
+                                  </select>
+                            </div>
+                        
+                            <textarea id="otherNotes" name="otherNotes" [(ngModel)]="otherNotes" placeholder="Other Things to Include" class="textarea-box vertical-child"></textarea>
+                          </form>                          
                       
                       
                     <!-- Button one -->
