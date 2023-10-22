@@ -38,8 +38,9 @@
     <div class="right-side">
         <div class="vertical-layout content">
             <!-- Top-->
-            <div class="vertical-child search">
-                <p>REPLACE ME WITH THE SEARCH BAR</p>
+            <div class="vertical-child search" id="searchBarDiv">
+                <input id="searchBar" type="text" placeholder="Search Pages" #filter>
+                <button id="searchBarButton" class="primary" type="button" (click)="searchResults(filter.value)">Search</button>
             </div>
 
             <!-- Bottom -->

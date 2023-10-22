@@ -59,6 +59,10 @@ export class AlertPageComponent implements OnInit {
     this.selectedTopic = event.target.value;
   }
 
+  searchResults(value: string) {
+    return;
+  }
+
   ngOnInit(): void {
     this.loadProviderData();
   }
