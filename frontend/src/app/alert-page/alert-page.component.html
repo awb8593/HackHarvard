@@ -60,8 +60,8 @@
                             <div class="horizontal-layout">
                                 <select id="selectPatient" name="selectedPatientId" [(ngModel)]="selectedPatientId" class="select-box">
                                     <option [ngValue]="0" disabled>Select a Patient</option>
-                                    <option *ngFor="let patientAlert of currentProvider.patientAlerts" [value]="patientAlert.patient.id">
-                                      {{ patientAlert.patient.name }}
+                                    <option *ngFor="let patient of patients" [value]="patient.id">
+                                      {{ patient.name }}
                                     </option>
                                   </select>
                                 
