@@ -10,6 +10,7 @@ import { Provider } from '../models/provider.model';
 export class AlertTableComponent implements OnInit {
   
   currentProvider: Provider;
+  loading = true;
 
   constructor(private providerService: ProviderService) {
     this.currentProvider = new Provider(0, '', 0, '', [], []);
@@ -18,6 +19,7 @@ export class AlertTableComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     try {
       this.currentProvider = await this.providerService.createMockProvider();
+      this.loading = false;
     } catch (error) {
       console.error('Error while fetching provider:', error);
     }
