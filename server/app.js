@@ -3,20 +3,44 @@ const fs = require('fs');
 const OpenAI = require('openai');
 const auth = require('./authentication.js');
 const cors = require('cors');
-
-
+const { MessagingResponse } = require('twilio').twiml;
 const app = express();
+
+// Twilio credentials
+const accountSid = auth.accountSid;
+const authToken = auth.authToken;
+const client = require('twilio')(accountSid, authToken);
+
+  // // Twilio server setup
+  // app.post('/sms', (req, res) => {
+  //   const twiml = new MessagingResponse();
+  
+  //   twiml.message('The Robots are coming! Head for the hills!');
+  
+  //   res.type('text/xml').send(twiml.toString());
+  // });
+
+
 const port = process.env.PORT || 3000;
 // Importing the API and instantiating the client
 const { default: Terra } = require("terra-api");
 const { json } = require('stream/consumers');
+const { send } = require('process');
 const terra = new Terra(auth.DEV_ID, auth.API_KEY, auth.SECRET);
 const reference_id = "helloHarvard";
 const openai = new OpenAI({
   apiKey: auth.openai_key, // defaults to process.env["OPENAI_API_KEY"]
 });
 
-app.use(cors()); // Enable CORS for all routes or configure it as needed.
+const allowedOrigins = ["http://localhost:4200"];
+app.use(cors({
+  origin: allowedOrigins,
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type, Authorization',
+  credentials: true
+}));
+
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
@@ -150,6 +174,42 @@ async function getWidget() {
   }
 }
 
-function main () {
-  terra.authUser();
+app.post('/sms', express.json(), (req, res) => {
+  const body = req.body.body;
+  const from = req.body.from;
+  const to = req.body.to;
+
+  if (!from || !to || !body) {
+    return res.status(400).json({ error: 'Missing parameters' });
+  }
+
+  // Add debugging output
+  console.log('Received SMS data:', { body, from, to });
+
+  notifyPatient(body, from, to);
+  getAllInfo(reference_id);
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  res.send(terra.getUser(reference_id));
+});
+
+
+async function notifyPatient(body, from, to) {
+  client.messages
+    .create({
+       body: body,
+       from: from,
+       to: to
+     })
+    .then(message => console.log(message.sid));
 }
+
+function main () {
+  //terra.authUser();
+  
+}
+
+main();
