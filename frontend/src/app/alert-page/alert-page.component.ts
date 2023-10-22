@@ -19,7 +19,6 @@ export class AlertPageComponent implements OnInit {
 
   constructor(private router: Router, private providerService: ProviderService, private rootService: RootService) {
     this.currentProvider = new Provider(0, '', 0, '', [], []);
-    this.loadProviderData();
   }
 
   async loadProviderData() {
@@ -54,5 +53,6 @@ export class AlertPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadProviderData();
   }
 }

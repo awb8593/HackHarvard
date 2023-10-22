@@ -3,14 +3,13 @@ import { Provider } from './models/provider.model';
 import { Patient } from './models/patient.model';
 import { PatientAlert } from './models/patient-alert.model';
 import { PatientService } from './patient.service';
-import { RootService } from './root/root.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderService {
 
-  constructor(private patientService: PatientService, private rootService: RootService) {}
+  constructor(private patientService: PatientService) {}
 
   async createMockProvider() {
 

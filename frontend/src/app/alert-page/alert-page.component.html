@@ -84,11 +84,9 @@
                 <!-- Right -->
                 <div class="vertical-layout horizontal-child patient-section">
                     <div class="patient-table vertical-child card">
-                        <app-patient-table></app-patient-table>
+                        <app-patient-table [patients]="currentProvider.patients"></app-patient-table>
                     </div>
-                    <div class="add-patient vertical-child card">
-                        <p>REPLACE ME WITH THE ADD PATIENT BUTTON</p>
-                    </div>
+                    <button class="add-patient">Add Patient</button>
                 </div>
             </div>
         </div>

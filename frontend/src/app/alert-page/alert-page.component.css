@@ -80,7 +80,19 @@
 }
 
 .add-patient {
-    height: 20%;
+    height: 3rem;
+    width: 65%;
+    margin: 2.5rem;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.add-patient:hover {
+    height: 3rem;
+    width: 65%;
+    margin: 2.5rem;
+    background-color: #EAEAEA;
+    border-radius: 50px;
 }
 
 .vertical-layout {
@@ -145,6 +157,7 @@
 /* Add hover effect to cards */
 .nav-card:hover {
     transform: scale(1.05);
+    background-color: #EAEAEA;
   }
 
 /* Style the card content (table) */
