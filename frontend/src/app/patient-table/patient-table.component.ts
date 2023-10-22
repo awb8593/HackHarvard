@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./patient-table.component.css']
 })
 export class PatientTableComponent implements OnInit {
-
+  patients = [
+    { priority: 5, patient: 'Peter', notes: 'These are notes' },
+    // Add more patients as needed
+  ];
   constructor() { }
 
   ngOnInit(): void {
