@@ -154,3 +154,25 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+#searchBar {
+    width: 85%;
+    height: 30px;
+    border-radius: 10px;
+    display: inline-block;
+    margin: 5px;
+}
+
+#searchBarButton {
+    height: 30px;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 5px;
+    width: 150px;
+}
+
+#searchBarDiv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
