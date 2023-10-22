@@ -68,12 +68,11 @@ app.get('/', (req, res) => {
       }
     });
 	})
-  // res.send(all);
 })
 
 app.get('/addWearables', (req, res) => {
-  getWidgetSession(res);
-  getWidget();
+  getWidgetSession();
+  getWidget(res);
 })
 
 app.get('/getProviders', (req, res) => {
@@ -114,8 +113,7 @@ app.get('/getUserDataNutrition', (req, res) => {
 
   // fill up historical data
 terra
-.getNutrition({ userId: userid, startDate: new Date("2023-10-15"), endDate: new Date(), toWebhook: false,
-withSamples: false})
+.getNutrition({ userId: userid, startDate: new Date("2023-06-29"), endDate: new Date(), toWebhook: false })
   .then((p) => {
     console.log(p);
     res.send(p);
@@ -129,11 +127,11 @@ app.get('/getUserDataActivity', (req, res) => {
   terra
   .getActivity({
     userId: userid,
-    startDate: new Date("2023-10-15"),
+    startDate: new Date("2023-06-29"),
     endDate: new Date(),
-    toWebhook: false,
-    withSamples: false
+    toWebhook: false
   })
+
   .then((p) => {
     console.log(p);
     res.send(p);
@@ -141,47 +139,15 @@ app.get('/getUserDataActivity', (req, res) => {
   .catch((e) => console.log(e.status, e.message));
 })
 
-app.get('/getUserDataBody', (req, res) => {
+app.get('/getUserDataSleep', (req, res) => {
   terra
-  .getBody({
+  .getSleep({
     userId: userid,
-    startDate: new Date("2023-10-15"),
+    startDate: new Date("2023-06-29"),
     endDate: new Date(),
-    toWebhook: false,
-    withSamples: false
+    toWebhook: false
   })
-  .then((p) => {
-    console.log(p);
-    res.send(p);
-  })
-  .catch((e) => console.log(e.status, e.message));
-})
 
-app.get('/getUserDataDaily', (req, res) => {
-  terra
-  .getDaily({
-    userId: userid,
-    startDate: new Date("2023-10-15"),
-    endDate: new Date(),
-    toWebhook: false,
-    withSamples: false
-  })
-  .then((p) => {
-    console.log(p);
-    res.send(p);
-  })
-  .catch((e) => console.log(e.status, e.message));
-})
-
-app.get('/getUserDataMenstruation', (req, res) => {
-  terra
-  .getMenstruation({
-    userId: userid,
-    startDate: new Date("2023-10-15"),
-    endDate: new Date(),
-    toWebhook: false,
-    withSamples: false
-  })
   .then((p) => {
     console.log(p);
     res.send(p);
@@ -252,7 +218,7 @@ async function getWidgetSession(res) {
 
 }
 
-async function getWidget() {
+async function getWidget(res) {
   try {
     const response = await fetch(
       'https://api.tryterra.co/v2/auth/generateWidgetSession',
@@ -276,7 +242,7 @@ async function getWidget() {
     );
     const json = await response.json();
     console.log(json.url);
-    return json;
+    res.send(json);
   } catch (error) {
     console.error(error);
   }

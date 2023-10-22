@@ -28,6 +28,40 @@ export class RootService {
     return this.getAPIData('getData')
   }
 
+  goToWearables() {
+    let url = this.getAPIData('getUserDataDaily');
+    return url;
+    // window.open(url);
+  }
+
+  getDaily() {
+    return this.getAPIData('getUserDataDaily')
+  }
+
+  getBody() {
+    return this.getAPIData('getUserDataBody')
+  }
+
+  getAthlete() {
+    return this.getAPIData('getUserDataAthlete')
+  }
+
+  getNutrition() {
+    return this.getAPIData('getUserDataNutrition')
+  }
+
+  getMenstruation() {
+    return this.getAPIData('getUserDataMenstruation')
+  }
+  
+  getSleep() {
+    return this.getAPIData('getUserDataSleep')
+  }
+
+  getActivity() {
+    return this.getAPIData('getUserDataActivity')
+  }
+
   getPatientAlert() {
     return this.getAPIData('diagnosis');
   }
