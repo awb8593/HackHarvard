@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
       }
     });
 	})
-  res.send(all);
+  // res.send(all);
 })
 
 app.get('/addWearables', (req, res) => {
@@ -114,7 +114,8 @@ app.get('/getUserDataNutrition', (req, res) => {
 
   // fill up historical data
 terra
-.getNutrition({ userId: userid, startDate: new Date("2023-06-29"), endDate: new Date(), toWebhook: false })
+.getNutrition({ userId: userid, startDate: new Date("2023-10-15"), endDate: new Date(), toWebhook: false,
+withSamples: false})
   .then((p) => {
     console.log(p);
     res.send(p);
@@ -128,11 +129,59 @@ app.get('/getUserDataActivity', (req, res) => {
   terra
   .getActivity({
     userId: userid,
-    startDate: new Date("2023-06-29"),
+    startDate: new Date("2023-10-15"),
     endDate: new Date(),
-    toWebhook: false
+    toWebhook: false,
+    withSamples: false
   })
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
+})
 
+app.get('/getUserDataBody', (req, res) => {
+  terra
+  .getBody({
+    userId: userid,
+    startDate: new Date("2023-10-15"),
+    endDate: new Date(),
+    toWebhook: false,
+    withSamples: false
+  })
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
+})
+
+app.get('/getUserDataDaily', (req, res) => {
+  terra
+  .getDaily({
+    userId: userid,
+    startDate: new Date("2023-10-15"),
+    endDate: new Date(),
+    toWebhook: false,
+    withSamples: false
+  })
+  .then((p) => {
+    console.log(p);
+    res.send(p);
+  })
+  .catch((e) => console.log(e.status, e.message));
+})
+
+app.get('/getUserDataMenstruation', (req, res) => {
+  terra
+  .getMenstruation({
+    userId: userid,
+    startDate: new Date("2023-10-15"),
+    endDate: new Date(),
+    toWebhook: false,
+    withSamples: false
+  })
   .then((p) => {
     console.log(p);
     res.send(p);
