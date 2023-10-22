@@ -80,7 +80,19 @@
 }
 
 .add-patient {
-    height: 20%;
+    height: 3rem;
+    width: 65%;
+    margin: 2.5rem;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.add-patient:hover {
+    height: 3rem;
+    width: 65%;
+    margin: 2.5rem;
+    background-color: #EAEAEA;
+    border-radius: 50px;
 }
 
 .vertical-layout {
@@ -131,9 +143,21 @@
     margin-left: 20px;
 }
 
+.alert-feed-card {
+    width: 90%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    transition: transform 0.2s ease-in-out;
+    padding:3%;
+}
+
 /* Add hover effect to cards */
 .nav-card:hover {
     transform: scale(1.05);
+    background-color: #EAEAEA;
   }
 
 /* Style the card content (table) */
