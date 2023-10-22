@@ -1,0 +1,26 @@
+<div class="modal">
+    <div class="modal-content">
+      <h2>{{ title }}</h2>
+  
+      <!-- Conditionally render a form if formData is provided -->
+      <form *ngIf="formData" (ngSubmit)="submitForm()" #form="ngForm">
+        <div class="form-group">
+          <label for="inputField">Name:</label>
+          <input type="text" id="name" name="Name" [(ngModel)]="formData.name" required>
+          <label for="inputField">Phone:</label>
+          <input type="text" id="phoneNumber" name="Phone Number" [(ngModel)]="formData.phoneNumber" required>
+        </div>
+        <!-- Add more form fields as needed -->
+  
+        <button type="submit">Submit</button>
+      </form>
+  
+      <!-- Conditionally render custom content if provided -->
+      <ng-container *ngIf="!formData">
+        <p>{{ message }}</p>
+      </ng-container>
+  
+      <button (click)="closeModal()">Close</button>
+    </div>
+  </div>
+  

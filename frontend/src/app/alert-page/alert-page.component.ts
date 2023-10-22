@@ -19,6 +19,10 @@ export class AlertPageComponent implements OnInit {
   otherNotes: string = "";
   patients: Array<Patient> = [];
 
+  showModal = false;
+  modalTitle = 'Add User';
+  modalMessage = '...';
+  formData = { name: 'name', phoneNumber: 'phone number'};
   constructor(private router: Router, private providerService: ProviderService, private rootService: RootService, private patientService: PatientService) {
     this.patients = [
       new Patient(1, "Onvida", 5857481591, new Array<Provider>),
@@ -45,14 +49,21 @@ export class AlertPageComponent implements OnInit {
     };
     console.log('Sending POST request:', request)
     // Send a POST request with the request body
+    this.modalTitle = 'Message';
+
     this.rootService.notifyPatient(request).subscribe(
       (response) => {
         console.log('Response:', response);
+        this.modalMessage = 'Message has been sent successfully!'
       },
       (error) => {
         console.error('Error:', error);
+        this.modalMessage = 'Message has failed to send.'
       }
     );
+
+    
+    this.openModal();
   }
 
   updateSelectedTopic(event: any) {
@@ -65,5 +76,32 @@ export class AlertPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProviderData();
+  }
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  openFormModal() {
+    this.showModal = true;
+    this.formData = { name: '', phoneNumber: '' };
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  addPatient() {
+    this.modalMessage = 'Add a User';
+    this.modalTitle = 'Add a User';
+    this.formData = { name: 'name', phoneNumber: 'phone number'};
+    this.openFormModal();
+  }
+
+  submitForm(formData: any) {
+    // Handle the form data from the form modal
+    console.log('Form data submitted:', formData);
+    console.log(formData.name);
+    this.patients.push(new Patient(this.patients.length, formData.name, formData.phonenumber, [this.currentProvider]));
   }
 }

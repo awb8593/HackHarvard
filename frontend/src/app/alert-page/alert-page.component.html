@@ -114,9 +114,11 @@
                     <div class="patient-table vertical-child card">
                         <app-patient-table [patients]="this.patients"></app-patient-table>
                     </div>
-                    <button class="add-patient">Add Patient</button>
+                    <button class="add-patient" (click)="openModal()">Add Patient</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<app-modal *ngIf="showModal" [title]="modalTitle" [message]="modalMessage" (closeModalEvent)="closeModal()" (submitFormEvent)="submitForm($event)"></app-modal>

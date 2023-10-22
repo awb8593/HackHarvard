@@ -10,6 +10,7 @@ import { PatientTableComponent } from './patient-table/patient-table.component';
 import { AlertTableComponent } from './alert-table/alert-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RootComponent } from './root/root.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { RootComponent } from './root/root.component';
     NavBarComponent,
     PatientTableComponent,
     AlertTableComponent,
-    RootComponent
+    RootComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
