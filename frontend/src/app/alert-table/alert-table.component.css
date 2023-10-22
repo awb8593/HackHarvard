@@ -42,5 +42,13 @@ h1, h4 {
   font-family: 'Poppins', sans-serif;
 }
 
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2%;
+}
+
+
 
 /* Add more CSS styles as needed to match your design preferences */

@@ -18,18 +18,45 @@
     height: 50px;
     border-radius: 50%; /* This creates a circular shape */
     object-fit: cover; /* This maintains the aspect ratio */
+    margin-right: 10px; /* Add margin to the right to move text to the right */
+  }
+
+  /* Define a CSS class for the patient name with a heavier font weight */
+  .patient-name {
+    font-weight: 600; /* You can adjust the font weight as needed */
+  }
+
+  /* Style for the "Patient" text */
+  .patient-title {
+    font-size: 14px; /* You can adjust the font size as needed */
+    margin-top: -5px; /* Adjust margin to reduce space */
+    font-weight: normal; /* Make the "Patient" text less bold */
+    color: #888; /* Change text color to gray */
+  }
+
+  .sub-header {
+    font-weight: bold; /* Make the sub-header text bolder */
+    font-size: 18px; /* Increase the font size for "Patient Profiles" */
+  }
+
+  /* Layout for the card content */
+  .card-content {
+    display: flex;
+    align-items: center;
   }
 </style>
 
-<b>Patient Profiles</b>
-<p>View Patient's Entire Chart</p>
+<b class="sub-header">Patient Profiles</b>
+<p class="sub-header">View Patient's Entire Chart</p>
 
 <div class="card-container">
   <div class="card" *ngFor="let patient of patients">
-    <div class="card-content horizontal-layout">
+    <div class="card-content">
       <img class="profile-pic" src="../../assets/SBock_Portrait.png"/>  
-      <p class="field">{{ patient.name }}</p>
-      <p class="field">Patient</p>
+      <div>
+        <p class="field patient-name">{{ patient.name }}</p>
+        <p class="field patient-title">Patient</p>
+      </div>
     </div>
   </div>
 </div>
