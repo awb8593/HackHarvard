@@ -13,9 +13,9 @@ export class ProviderService {
 
   async createMockProvider() {
 
-    const patient1 = new Patient(1, "Onvida", 5857481591, new Array<Provider>)
-    const patient2 = new Patient(7, "Diego", 5857481591, new Array<Provider>)
-    const patient3 = new Patient(10, "Kasim", 5857481591, new Array<Provider>)
+    const patient1 = new Patient(1, "Onvida", -1, new Array<Provider>)
+    const patient2 = new Patient(7, "Diego", -1, new Array<Provider>)
+    const patient3 = new Patient(10, "Kasim", -1, new Array<Provider>)
     const patientAlert1 = await this.patientService.createMockPatientAlert(patient1);
     const patientAlert2 = await this.patientService.createMockPatientAlert(patient2);
     const patientAlert3 = await this.patientService.createMockPatientAlert(patient3);
@@ -24,7 +24,7 @@ export class ProviderService {
     return new Provider(
       1, 
       "Dr. Burgos",
-      5857481591,
+      -1,
       "Psychologist",
       new Array<Patient>(
         patient1, patient2, patient3

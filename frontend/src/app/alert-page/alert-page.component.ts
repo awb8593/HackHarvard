@@ -5,6 +5,8 @@ import { Patient } from '../models/patient.model';
 import { ProviderService } from '../provider.service';
 import { RootService } from '../root/root.service';
 import { PatientService } from '../patient.service';
+import { phoneFrom, phoneTo } from 'authentication.js';
+
 
 @Component({
   selector: 'app-alert-page',
@@ -25,9 +27,9 @@ export class AlertPageComponent implements OnInit {
   formData = { name: 'name', phoneNumber: 'phone number'};
   constructor(private router: Router, private providerService: ProviderService, private rootService: RootService, private patientService: PatientService) {
     this.patients = [
-      new Patient(1, "Onvida", 5857481591, new Array<Provider>),
-      new Patient(7, "Diego", 5857481591, new Array<Provider>),
-      new Patient(10, "Kasim", 5857481591, new Array<Provider>)
+      new Patient(1, "Onvida", -1, new Array<Provider>),
+      new Patient(7, "Diego", -1, new Array<Provider>),
+      new Patient(10, "Kasim", -1, new Array<Provider>)
     ]
     this.currentProvider = new Provider(0, '', 0, '', [], []);
   }
@@ -44,8 +46,8 @@ export class AlertPageComponent implements OnInit {
   onSend() {
     const request = {
       body: "From: " + this.currentProvider.name + ", Topic: " + this.selectedTopic + ", Message: " + this.otherNotes,
-      from: '+18559052854',
-      to: '+15857481591'
+      from: phoneFrom,
+      to: phoneTo
     };
     console.log('Sending POST request:', request)
     // Send a POST request with the request body

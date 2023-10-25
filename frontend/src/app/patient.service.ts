@@ -12,7 +12,7 @@ export class PatientService {
   constructor(private rootService: RootService) {}
 
   createMockPatient(name: string, id: number): Patient {
-    return new Patient(id, name, 5857481591, new Array<Provider>());
+    return new Patient(id, name, -1, new Array<Provider>());
 
   }
   
